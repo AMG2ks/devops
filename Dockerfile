@@ -1,10 +1,4 @@
-FROM eclipse-temurin:17-jdk AS build
-WORKDIR /app
-COPY . .
-RUN ./mvnw clean package -DskipTests
-
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+FROM openjdk:17-jdk-alpine
 EXPOSE 8089
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ADD target/achat-1.0.jar achat-1.0.jar
+ENTRYPOINT ["java","-jar","/achat-1.0.jar"]
